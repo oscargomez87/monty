@@ -72,6 +72,7 @@ void _readline(FILE *fd)
  * @cmd: command to compare with structure elements.
  * @cvalue: argument used when calling the operation function.
  * @stack: Linear data structure used when calling the operation function.
+ * @line: Number of line working with at the moment of call
  *
  */
 void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,

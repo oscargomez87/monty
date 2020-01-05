@@ -54,11 +54,17 @@ void merror(void)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * nint - Prints an error to stderr when
+ * the value of the operation is not an integer
+ *
+ * @line: Line where the wrong value is
+ */
 void nint(size_t line)
 {
 	char buff[1024];
 
 	snprintf(buff, 1024, "L%lu: usage: push integer\n", line);
 	write(STDERR_FILENO, buff, _strlen(buff));
-        exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
