@@ -49,9 +49,10 @@ void _readline(FILE *fd)
 	while (getline(&linerd, &nlinerd, fd) > 0)
 	{
 		line++;
+		_trim(&linerd);
 		cmd = linerd;
 		cvalue = NULL;
-		while (*linerd != '\n')
+		while (*linerd != '\0')
 		{
 			if (*linerd == ' ' && *linerd - 1 != ' ')
 			{
@@ -60,7 +61,6 @@ void _readline(FILE *fd)
 			}
 			linerd += 1;
 		}
-		*linerd = '\0';
 		_chkcmd(ins, cmd, cvalue, &stack, line);
 	}
 }
@@ -78,20 +78,28 @@ void _readline(FILE *fd)
 void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
 	     stack_t **stack, size_t line)
 {
-	unsigned int line_number = 0;
+	unsigned int line_number = 0, i = 0;
 
-	while (cvalue)
-	{
-		if (_isdigit(*cvalue) != 0)
-			;
-		else
-			nint(line);
-		cvalue += 1;
-	}
 	while (ins->opcode != NULL)
 	{
 		if (_strcmp(ins->opcode, cmd) == 0)
 		{
+			if (_strcmp(ins->opcode, "push") == 0)
+			{
+				if (cvalue != NULL)
+				{
+					while (cvalue[i])
+					{
+						if (_isdigit(cvalue[i]) != 0)
+							;
+						else
+							nint(line);
+						i++;
+					}
+					line_number = _atoi(cvalue);
+				}else
+					nint(line);
+			}
 			ins->f(stack, line_number);
 			break;
 		}

@@ -46,6 +46,7 @@ char *_strncat(char *, char *, int);
 int _strcmp(char *, char *);
 int _atoi(char *);
 int _isdigit(int);
+void _trim(char **);
 
 /*
  * Error handling functions
