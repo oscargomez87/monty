@@ -78,20 +78,10 @@ void _readline(FILE *fd)
 void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
 	     stack_t **stack, size_t line)
 {
-	unsigned int line_number = 0, i = 0;
+	unsigned int line_number = 0;
 
 	if (cvalue != NULL)
-	{
-		while (cvalue[i])
-		{
-			if (_isdigit(cvalue[i]) != 0)
-				;
-			else
-				nint(line);
-			i++;
-		}
 		line_number = _atoi(cvalue);
-	}
 	while (ins->opcode != NULL)
 	{
 		if (_strcmp(ins->opcode, cmd) == 0)
