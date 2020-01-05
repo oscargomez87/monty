@@ -12,9 +12,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -27,8 +27,44 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+/*
+ * String manipulation functions
+ */
+int _strlen(char *);
+char *_strncat(char *, char *, int);
+int _strcmp(char *, char *);
+int _atoi(char *);
+int _isdigit(int);
+
+/*
+ * Error handling functions
+ */
+void openerr(char *);
+void nargumenterr(void);
+void merror(void);
+void nint(size_t);
+
+/*
+ * Core functions, first steps to operations call
+ */
+void _readline(FILE *);
+void _chkcmd(instruction_t *, char *, char *, stack_t **, size_t);
+
+/*
+ * Operations over stack functions
+ */
+void _opush(stack_t **, unsigned int);
+void _opall(stack_t **, unsigned int);
 
 #endif
