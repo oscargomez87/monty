@@ -1,4 +1,8 @@
-#include <stdio.h>
+/**
+ * _trim - Removes extra spaces
+ *
+ * @linerd: pointer to address with string to remove spaces from
+ */
 void _trim(char **linerd)
 {
 	int i = 0;

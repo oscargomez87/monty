@@ -80,6 +80,18 @@ void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
 {
 	unsigned int line_number = 0, i = 0;
 
+	if (cvalue != NULL)
+	{
+		while (cvalue[i])
+		{
+			if (_isdigit(cvalue[i]) != 0)
+				;
+			else
+				nint(line);
+			i++;
+		}
+		line_number = _atoi(cvalue);
+	}
 	while (ins->opcode != NULL)
 	{
 		if (_strcmp(ins->opcode, cmd) == 0)
@@ -87,17 +99,6 @@ void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
 			if (_strcmp(ins->opcode, "push") == 0)
 			{
 				if (cvalue != NULL)
-				{
-					while (cvalue[i])
-					{
-						if (_isdigit(cvalue[i]) != 0)
-							;
-						else
-							nint(line);
-						i++;
-					}
-					line_number = _atoi(cvalue);
-				}else
 					nint(line);
 			}
 			ins->f(stack, line_number);
