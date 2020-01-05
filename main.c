@@ -98,7 +98,7 @@ void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
 		{
 			if (_strcmp(ins->opcode, "push") == 0)
 			{
-				if (cvalue != NULL)
+				if (cvalue == NULL)
 					nint(line);
 			}
 			ins->f(stack, line_number);
