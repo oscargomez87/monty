@@ -54,14 +54,14 @@ void _trim(char **, char **);
 void openerr(char *);
 void nargumenterr(void);
 void merror(void);
-void nint(size_t);
-void ninstructionerr(char *, size_t);
+void nint(size_t, char *, stack_t *, FILE *);
+void ninstructionerr(char *, size_t, char *, stack_t *, FILE *);
 
 /*
  * Core functions, first steps to operations call
  */
 void _readline(FILE *);
-void _chkcmd(instruction_t *, char *, char *, stack_t **, size_t);
+int _chkcmd(instruction_t *, char *, char *, stack_t **);
 
 /*
  * Operations over stack functions

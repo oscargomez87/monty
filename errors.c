@@ -31,17 +31,25 @@ void nargumenterr(void)
 
 /**
  * ninstructionerr - Prints an error to stderr
- * when an invalidinstruction is read
+ * when an invalidinstruction is read and releases the memory used
  *
  * @opcode: Operation not found.
  * @line: Line where the wrong value is
+ * @linerd: var to release memory used
+ * @stack: var to release memory used
+ * @fd: var to release memory used
+ *
  */
-void ninstructionerr(char *opcode, size_t line)
+void ninstructionerr(char *opcode, size_t line, char *linerd,
+		     stack_t *stack, FILE *fd)
 {
 	char buff[1024];
 
 	snprintf(buff, 1024, "L%lu: unknown instruction %s\n", line, opcode);
 	write(STDERR_FILENO, buff, _strlen(buff));
+	free(linerd);
+	_free_stack(stack);
+	fclose(fd);
 	exit(EXIT_FAILURE);
 }
 
@@ -62,12 +70,19 @@ void merror(void)
  * the value of the operation is not an integer
  *
  * @line: Line where the wrong value is
+ * @linerd: var to release memory used
+ * @stack: var to release memory used
+ * @fd: var to release memory used
+ *
  */
-void nint(size_t line)
+void nint(size_t line, char *linerd, stack_t *stack, FILE *fd)
 {
 	char buff[1024];
 
 	snprintf(buff, 1024, "L%lu: usage: push integer\n", line);
 	write(STDERR_FILENO, buff, _strlen(buff));
+	free(linerd);
+	_free_stack(stack);
+	fclose(fd);
 	exit(EXIT_FAILURE);
 }

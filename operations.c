@@ -40,7 +40,7 @@ void _opall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 }
 
 /**
- * _free_stack - releases memory used for the stack
+ * _free_stack - releases memory used by the program
  *
  * @stack: stack to release memory used from
  *

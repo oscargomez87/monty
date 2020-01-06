@@ -23,7 +23,6 @@ int main(int argc, char **argv)
 		}
 		montyf = fdopen(montyfd, "r");
 		_readline(montyf);
-		fclose(montyf);
 	} else
 		nargumenterr();
 	return (0);
@@ -38,9 +37,11 @@ int main(int argc, char **argv)
  */
 void _readline(FILE *fd)
 {
-	char *cmd, *cvalue, *linerd = NULL, *temp = NULL;
+	char *cmd, *cvalue, *temp = NULL, *linerd = NULL;
+	int chkres = 0;
 	size_t nlinerd = 0, line = 0;
 	stack_t *stack = NULL;
+
 	instruction_t ins[] = {
 		{"push", _opush},
 		{"pall", _opall},
@@ -55,8 +56,16 @@ void _readline(FILE *fd)
 		cvalue = NULL;
 		_trim(&temp, &cmd);
 		_trim(&temp, &cvalue);
-		_chkcmd(ins, cmd, cvalue, &stack, line);
+		chkres = _chkcmd(ins, cmd, cvalue, &stack);
+		if (chkres == -1)
+		{
+			nint(line, linerd, stack, fd);
+		} else if (chkres == -2)
+		{
+			ninstructionerr(cmd, line, linerd, stack, fd);
+		}
 	}
+	fclose(fd);
 	free(linerd);
 	_free_stack(stack);
 }
@@ -66,31 +75,39 @@ void _readline(FILE *fd)
  *
  * @ins: Structure with a list of operations.
  * @cmd: command to compare with structure elements.
- * @cvalue: argument used when calling the operation function.
+ * @cvalue: argument used when calling the operation function
  * @stack: Linear data structure used when calling the operation function.
- * @line: Number of line working with at the moment of call
+ * Return: returns 0 on success, -1 if value is not int and
+ * -2 if operation is not found
  *
  */
-void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
-	     stack_t **stack, size_t line)
+int _chkcmd(instruction_t *ins, char *cmd, char *cvalue, stack_t **stack)
 {
-	unsigned int line_number = 0;
+	unsigned int line_number = 0, i = 0, j = 0;
 
-	if (cvalue != NULL)
-		line_number = _atoi(cvalue);
-	while (ins->opcode != NULL)
+	while (ins[i].opcode != NULL)
 	{
-		if (_strcmp(ins->opcode, cmd) == 0)
+		if (_strcmp(ins[i].opcode, cmd) == 0)
 		{
-			if (_strcmp(ins->opcode, "push") == 0)
+			if (i == 0)
 			{
 				if (cvalue == NULL)
-					nint(line);
+					return (-1);
+				while (cvalue[j])
+				{
+					if (_isdigit(cvalue[j]) == 0
+					    && cvalue[j] != '-')
+					{
+						return (-1);
+						}
+					j++;
+				}
 			}
-			ins->f(stack, line_number);
-			return;
+			line_number = _atoi(cvalue);
+			ins[i].f(stack, line_number);
+			return (0);
 		}
-		ins += 1;
+		i++;
 	}
-	ninstructionerr(cmd, line);
+	return (-2);
 }
