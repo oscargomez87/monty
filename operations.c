@@ -30,12 +30,12 @@ void _opint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	stack_t *temp;
 
 	if (*stack == NULL)
-                emstackerror();
-        temp = *stack;
-        while (temp->next != NULL)
-        {
-                temp = temp->next;
-        }
+		emstackerror();
+	temp = *stack;
+	while (temp->next != NULL)
+	{
+		temp = temp->next;
+	}
 	printf("%d\n", temp->n);
 }
 
