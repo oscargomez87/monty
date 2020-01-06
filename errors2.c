@@ -42,3 +42,30 @@ void emmulstackerror(void)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * emmodstackerrorn0 - Prints an error to stderr when malloc fails
+ *
+ */
+void emmodstackerrorn0(void)
+{
+	char buff[1024];
+
+	snprintf(buff, 1024,
+		 "L%lu: can't mod, stack too short\n", line);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
+}
+
+/**
+ * emmodstackerror0 - Prints an error to stderr when malloc fails
+ *
+ */
+void emmodstackerror0(void)
+{
+	char buff[1024];
+
+	snprintf(buff, 1024,
+		 "L%lu: division by zero\n", line);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
+}

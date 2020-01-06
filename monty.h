@@ -66,6 +66,8 @@ void emsubstackerror(void);
 void emdivstackerrorn0(void);
 void emdivstackerror0(void);
 void emmulstackerror(void);
+void emmodstackerrorn0(void);
+void emmodstackerror0(void);
 
 /*
  * Core functions, first steps to operations call
@@ -85,6 +87,7 @@ void _nop(stack_t **, unsigned int);
 void _sub(stack_t **, unsigned int);
 void _div(stack_t **, unsigned int);
 void _mul(stack_t **, unsigned int);
+void _mod(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 
