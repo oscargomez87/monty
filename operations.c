@@ -39,16 +39,22 @@ void _opall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 }
 
+/**
+ * _free_stack - releases memory used for the stack
+ *
+ * @stack: stack to release memory used from
+ *
+ */
 void _free_stack(stack_t *stack)
 {
 	stack_t *temp;
 
-        if (stack == NULL)
-                return;
-        while (stack)
-        {
+	if (stack == NULL)
+		return;
+	while (stack)
+	{
 		temp = stack->prev;
 		free(stack);
 		stack = temp;
-        }
+	}
 }
