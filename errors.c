@@ -33,14 +33,16 @@ void nargumenterr(void)
  * ninstructionerr - Prints an error to stderr
  * when an invalidinstruction is read
  *
+ * @opcode: Operation not found.
+ * @line: Line where the wrong value is
  */
 void ninstructionerr(char *opcode, size_t line)
 {
 	char buff[1024];
 
-        snprintf(buff, 1024, "L%lu: unknown instruction %s\n", line, opcode);
-        write(STDERR_FILENO, buff, _strlen(buff));
-        exit(EXIT_FAILURE);
+	snprintf(buff, 1024, "L%lu: unknown instruction %s\n", line, opcode);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
 }
 
 /**

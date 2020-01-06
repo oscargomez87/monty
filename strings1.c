@@ -1,7 +1,8 @@
 /**
- * _trim - Removes extra spaces
+ * _trim - Removes extra spaces, and cuts string between words
  *
- * @linerd: pointer to address with string to remove spaces from
+ * @temp: pointer to address with string to remove spaces from
+ * @dest: pointer where cut string will be assigned to
  */
 void _trim(char **temp, __attribute__((unused)) char **dest)
 {
