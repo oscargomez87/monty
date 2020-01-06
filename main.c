@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 		}
 		montyf = fdopen(montyfd, "r");
 		_readline(montyf);
+		fclose(montyf);
 	} else
 		nargumenterr();
 	return (0);
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
  */
 void _readline(FILE *fd)
 {
-	char *cmd, *cvalue, *linerd;
+	char *cmd, *cvalue, *linerd = NULL, *temp = NULL;
 	size_t nlinerd = 0, line = 0;
 	stack_t *stack = NULL;
 	instruction_t ins[] = {
@@ -48,21 +49,25 @@ void _readline(FILE *fd)
 
 	while (getline(&linerd, &nlinerd, fd) > 0)
 	{
+		temp = linerd;
 		line++;
-		_trim(&linerd);
-		cmd = linerd;
+		_trim(&temp);
+		cmd = temp;
 		cvalue = NULL;
-		while (*linerd != '\0')
+		while (*temp != '\0')
 		{
-			if (*linerd == ' ' && *linerd - 1 != ' ')
+			if (*temp == ' ' && *temp - 1 != ' ')
 			{
-				*linerd = '\0';
-				cvalue = linerd + 1;
+				*temp = '\0';
+				cvalue = temp + 1;
 			}
-			linerd += 1;
+			temp += 1;
 		}
+		printf("temp = %p, linerd = %p\n", temp, linerd);
 		_chkcmd(ins, cmd, cvalue, &stack, line);
 	}
+	free(linerd);
+	_free_stack(stack);
 }
 
 /**

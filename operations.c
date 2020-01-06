@@ -38,3 +38,17 @@ void _opall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 		temp = temp->prev;
 	}
 }
+
+void _free_stack(stack_t *stack)
+{
+	stack_t *temp;
+
+        if (stack == NULL)
+                return;
+        while (stack)
+        {
+		temp = stack->prev;
+		free(stack);
+		stack = temp;
+        }
+}

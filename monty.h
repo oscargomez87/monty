@@ -67,5 +67,6 @@ void _chkcmd(instruction_t *, char *, char *, stack_t **, size_t);
  */
 void _opush(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
+void _free_stack(stack_t *);
 
 #endif
