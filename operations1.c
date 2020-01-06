@@ -88,8 +88,11 @@ void _div(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	stack_t *temp;
 
 	temp = *stack;
-	if (*stack == NULL || (*stack)->prev == NULL
-	    || (*stack)->prev->prev == NULL)
+	while ((*stack)->next != NULL)
+		*stack = (*stack)->next;
+	if (*stack == NULL)
+		emdivstackerrorn0();
+	if ((*stack)->prev == NULL || (*stack)->prev->prev == NULL)
 		emdivstackerrorn0();
 	a = (*stack)->n;
 	if (a == 0)
