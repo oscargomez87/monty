@@ -34,12 +34,13 @@ void nargumenterr(void)
  * when an invalidinstruction is read
  *
  */
-void ninstructionerr(void)
+void ninstructionerr(char *opcode, size_t line)
 {
-	char *nierr = "L<line_number>: unknown instruction <opcode>/n";
+	char buff[1024];
 
-	write(STDERR_FILENO, nierr, _strlen(nierr));
-	exit(EXIT_FAILURE);
+        snprintf(buff, 1024, "L%lu: unknown instruction %s\n", line, opcode);
+        write(STDERR_FILENO, buff, _strlen(buff));
+        exit(EXIT_FAILURE);
 }
 
 /**

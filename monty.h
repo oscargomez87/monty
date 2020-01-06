@@ -46,7 +46,7 @@ char *_strncat(char *, char *, int);
 int _strcmp(char *, char *);
 int _atoi(char *);
 int _isdigit(int);
-void _trim(char **);
+void _trim(char **, char **);
 
 /*
  * Error handling functions
@@ -55,6 +55,7 @@ void openerr(char *);
 void nargumenterr(void);
 void merror(void);
 void nint(size_t);
+void ninstructionerr(char *, size_t);
 
 /*
  * Core functions, first steps to operations call

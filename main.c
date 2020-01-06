@@ -51,19 +51,10 @@ void _readline(FILE *fd)
 	{
 		temp = linerd;
 		line++;
-		_trim(&temp);
-		cmd = temp;
+		cmd = NULL;
 		cvalue = NULL;
-		while (*temp != '\0')
-		{
-			if (*temp == ' ' && *temp - 1 != ' ')
-			{
-				*temp = '\0';
-				cvalue = temp + 1;
-			}
-			temp += 1;
-		}
-		printf("temp = %p, linerd = %p\n", temp, linerd);
+		_trim(&temp, &cmd);
+		_trim(&temp, &cvalue);
 		_chkcmd(ins, cmd, cvalue, &stack, line);
 	}
 	free(linerd);
@@ -97,8 +88,9 @@ void _chkcmd(instruction_t *ins, char *cmd, char *cvalue,
 					nint(line);
 			}
 			ins->f(stack, line_number);
-			break;
+			return;
 		}
 		ins += 1;
 	}
+	ninstructionerr(cmd, line);
 }
