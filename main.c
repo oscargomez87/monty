@@ -1,5 +1,7 @@
 #include "monty.h"
 
+size_t line = 0;
+
 /**
  * main - Checks arguments, open file to work with then
  * calls the function _readline to extract the lines from the file
@@ -39,7 +41,7 @@ void _readline(FILE *fd)
 {
 	char *cmd, *cvalue, *temp = NULL, *linerd = NULL;
 	int chkres = 0;
-	size_t nlinerd = 0, line = 0;
+	size_t nlinerd = 0;
 	stack_t *stack = NULL;
 
 	instruction_t ins[] = {

@@ -38,6 +38,8 @@ typedef struct instruction_s
 #include <sys/stat.h>
 #include <fcntl.h>
 
+extern size_t line;
+
 /*
  * String manipulation functions
  */
@@ -56,6 +58,7 @@ void nargumenterr(void);
 void merror(void);
 void nint(size_t, char *, stack_t *, FILE *);
 void ninstructionerr(char *, size_t, char *, stack_t *, FILE *);
+void emstackerror(void);
 
 /*
  * Core functions, first steps to operations call
