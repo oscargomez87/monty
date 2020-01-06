@@ -73,7 +73,9 @@ void emmodstackerror0(void);
  * Core functions, first steps to operations call
  */
 void _readline(FILE *);
-int _chkcmd(instruction_t *, char *, char *, stack_t **);
+int _chkcmd(char *, stack_t **, int);
+void (*_opchk(instruction_t *, char *))(stack_t **, unsigned int);
+int _chkcvalue(char *, int *);
 
 /*
  * Operations over stack functions

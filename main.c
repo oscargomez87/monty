@@ -40,10 +40,45 @@ int main(int argc, char **argv)
 void _readline(FILE *fd)
 {
 	char *cmd, *cvalue, *temp = NULL, *linerd = NULL;
-	int chkres = 0;
+	int chkres = 0, line_number = 0;
 	size_t nlinerd = 0;
 	stack_t *stack = NULL;
 
+	while (getline(&linerd, &nlinerd, fd) > 0)
+	{
+		temp = linerd;
+		line++;
+		cmd = NULL;
+		cvalue = NULL;
+		_trim(&temp, &cmd);
+		_trim(&temp, &cvalue);
+		if (_strcmp(cmd, "push") == 0)
+			chkres = _chkcvalue(cvalue, &line_number);
+		if (chkres == -1)
+			nint(line, linerd, stack, fd);
+		chkres = _chkcmd(cmd, &stack, line_number);
+		if (chkres == -1)
+			ninstructionerr(cmd, line, linerd, stack, fd);
+	}
+	fclose(fd);
+	free(linerd);
+	_free_stack(stack);
+}
+
+/**
+ * _chkcmd - Initializes structure with pointer to functions,
+ * then calls a chkop to call the appropiate function.
+ *
+ * @cmd: command to compare with structure elements.
+ * @line_number: Data to add in the stack
+ * @stack: Linear data structure used when calling the operation function.
+ * Return: 0 on success, -1 if value is not int and
+ * -2 if operation is not found
+ *
+ */
+int _chkcmd(char *cmd, stack_t **stack, int line_number)
+{
+	void (*ptr)(stack_t **, unsigned int);
 	instruction_t ins[] = {
 		{"push", _opush},
 		{"pall", _opall},
@@ -59,68 +94,59 @@ void _readline(FILE *fd)
 		{NULL, NULL}
 	};
 
-	while (getline(&linerd, &nlinerd, fd) > 0)
-	{
-		temp = linerd;
-		line++;
-		cmd = NULL;
-		cvalue = NULL;
-		_trim(&temp, &cmd);
-		_trim(&temp, &cvalue);
-		chkres = _chkcmd(ins, cmd, cvalue, &stack);
-		if (chkres == -1)
-		{
-			nint(line, linerd, stack, fd);
-		} else if (chkres == -2)
-		{
-			ninstructionerr(cmd, line, linerd, stack, fd);
-		}
-	}
-	fclose(fd);
-	free(linerd);
-	_free_stack(stack);
+	if (cmd[0] == '\0')
+		return (0);
+	ptr = _opchk(ins, cmd);
+	if (ptr == NULL)
+		return (-1);
+	ptr(stack, (unsigned int)line_number);
+	return (0);
 }
 
 /**
- * _chkcmd - Compares a command received and calls the appropiate function.
+ * _opchk - Checks if the opcode asked exist.
  *
  * @ins: Structure with a list of operations.
  * @cmd: command to compare with structure elements.
- * @cvalue: argument used when calling the operation function
- * @stack: Linear data structure used when calling the operation function.
- * Return: returns 0 on success, -1 if value is not int and
- * -2 if operation is not found
+ * Return: pointer to function when succesful, null otherwise
  *
  */
-int _chkcmd(instruction_t *ins, char *cmd, char *cvalue, stack_t **stack)
+void (*_opchk(instruction_t *ins, char *cmd))(stack_t **, unsigned int)
 {
-	unsigned int line_number = 0, i = 0, j = 0;
-
-	if (cmd[0] == '\0')
-		return (0);
-	while (ins[i].opcode != NULL)
+	while (ins->opcode != NULL)
 	{
-		if (_strcmp(ins[i].opcode, cmd) == 0)
+		if (_strcmp(ins->opcode, cmd) == 0)
 		{
-			if (i == 0)
-			{
-				if (cvalue == NULL || cvalue[0] == '\0')
-					return (-1);
-				while (cvalue[j])
-				{
-					if (_isdigit(cvalue[j]) == 0
-					    && cvalue[j] != '-')
-					{
-						return (-1);
-						}
-					j++;
-				}
-			}
-			line_number = _atoi(cvalue);
-			ins[i].f(stack, line_number);
-			return (0);
+			return (ins->f);
+		}
+		ins++;
+	}
+	return (NULL);
+}
+
+/**
+ * _chkcvalue - Checks if a string can be converted to in, and if parses it.
+ *
+ * @cvalue: String to check.
+ * @line_number: pointer to int used to store the cvalue parsed
+ * Return: 0 if successful, -1 otherwise
+ *
+ */
+int _chkcvalue(char *cvalue, int *line_number)
+{
+	int i = 0;
+
+	if (cvalue == NULL || *cvalue == '\0')
+		return (-1);
+	while (*(cvalue + i))
+	{
+		if (_isdigit(*(cvalue + i)) == 0
+		    && *(cvalue + i) != '-')
+		{
+			return (-1);
 		}
 		i++;
 	}
-	return (-2);
+	*line_number = _atoi(cvalue);
+	return (0);
 }
