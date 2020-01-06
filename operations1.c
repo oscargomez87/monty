@@ -10,8 +10,8 @@ void _oswap(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *temp;
 
-	if ( *stack == NULL || (*stack)->prev == NULL
-	     ||(*stack)->prev->prev == NULL)
+	if ((*stack == NULL) || ((*stack)->prev == NULL)
+	    || ((*stack)->prev->prev == NULL))
 		emswapstackerror();
 	temp = (*stack)->prev->prev;
 	(*stack)->next = temp->next;
@@ -32,9 +32,9 @@ void _add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	int a, b;
 
-        if ( *stack == NULL || (*stack)->prev == NULL
-             ||(*stack)->prev->prev == NULL)
-                emaddstackerror();
+	if (*stack == NULL || (*stack)->prev == NULL
+	    || (*stack)->prev->prev == NULL)
+		emaddstackerror();
 	a = (*stack)->n;
 	b = (*stack)->prev->n;
 	(*stack)->prev->n = a + b;

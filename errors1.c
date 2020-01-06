@@ -33,24 +33,24 @@ void empopstackerror(void)
  */
 void emswapstackerror(void)
 {
-        char buff[1024];
+	char buff[1024];
 
-        snprintf(buff, 1024,
-                 "L%lu: can't swap, stack too short\n", line);
-        write(STDERR_FILENO, buff, _strlen(buff));
-        exit(EXIT_FAILURE);
+	snprintf(buff, 1024,
+		 "L%lu: can't swap, stack too short\n", line);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
 }
 
 /**
- * emswapstackerror - Prints an error to stderr when malloc fails
+ * emaddstackerror - Prints an error to stderr when malloc fails
  *
  */
 void emaddstackerror(void)
 {
-        char buff[1024];
+	char buff[1024];
 
-        snprintf(buff, 1024,
-                 "L%lu: can't add, stack too short\n", line);
-        write(STDERR_FILENO, buff, _strlen(buff));
-        exit(EXIT_FAILURE);
+	snprintf(buff, 1024,
+		 "L%lu: can't add, stack too short\n", line);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
 }
