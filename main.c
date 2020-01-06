@@ -92,6 +92,8 @@ int _chkcmd(instruction_t *ins, char *cmd, char *cvalue, stack_t **stack)
 {
 	unsigned int line_number = 0, i = 0, j = 0;
 
+	if (cmd[0] == '\0')
+		return (0);
 	while (ins[i].opcode != NULL)
 	{
 		if (_strcmp(ins[i].opcode, cmd) == 0)
