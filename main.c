@@ -100,7 +100,7 @@ int _chkcmd(instruction_t *ins, char *cmd, char *cvalue, stack_t **stack)
 		{
 			if (i == 0)
 			{
-				if (cvalue == NULL)
+				if (cvalue == NULL || cvalue[0] == '\0')
 					return (-1);
 				while (cvalue[j])
 				{
