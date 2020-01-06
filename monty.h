@@ -67,6 +67,7 @@ int _chkcmd(instruction_t *, char *, char *, stack_t **);
  * Operations over stack functions
  */
 void _opush(stack_t **, unsigned int);
+void _opint(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 

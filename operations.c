@@ -20,6 +20,26 @@ void _opush(stack_t **stack, unsigned int line_number)
 }
 
 /**
+ * _opint - Inserts an element at the end of a stack.
+ *
+ * @stack: Linear data structure.
+ * @line_number: unused.
+ */
+void _opint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+{
+	stack_t *temp;
+
+	if (*stack == NULL)
+                return;
+        temp = *stack;
+        while (temp->next != NULL)
+        {
+                temp = temp->next;
+        }
+	printf("%d\n", temp->n);
+}
+
+/**
  * _opall - Prints all the elements of a stack
  *
  * @stack: Linear data structure.

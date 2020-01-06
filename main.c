@@ -45,6 +45,7 @@ void _readline(FILE *fd)
 	instruction_t ins[] = {
 		{"push", _opush},
 		{"pall", _opall},
+		{"pint", _opint},
 		{NULL, NULL}
 	};
 
