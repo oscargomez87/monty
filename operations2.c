@@ -49,4 +49,3 @@ void _mod(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	*stack = (*stack)->prev;
 	free(temp);
 }
-
