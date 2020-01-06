@@ -27,3 +27,18 @@ void emdivstackerror0(void)
 	write(STDERR_FILENO, buff, _strlen(buff));
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * emmulstackerror - Prints an error to stderr when malloc fails
+ *
+ */
+void emmulstackerror(void)
+{
+	char buff[1024];
+
+	snprintf(buff, 1024,
+		 "L%lu: can't mul, stack too short\n", line);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
+}
+

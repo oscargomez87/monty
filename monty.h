@@ -50,8 +50,6 @@ int _atoi(char *);
 int _isdigit(int);
 void _trim(char **, char **);
 
-int _abs(int);
-
 /*
  * Error handling functions
  */
@@ -67,6 +65,7 @@ void emaddstackerror(void);
 void emsubstackerror(void);
 void emdivstackerrorn0(void);
 void emdivstackerror0(void);
+void emmulstackerror(void);
 
 /*
  * Core functions, first steps to operations call
@@ -85,6 +84,7 @@ void _add(stack_t **, unsigned int);
 void _nop(stack_t **, unsigned int);
 void _sub(stack_t **, unsigned int);
 void _div(stack_t **, unsigned int);
+void _mul(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 
