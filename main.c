@@ -50,6 +50,7 @@ void _readline(FILE *fd)
 		{"pint", _opint},
 		{"pop", _opop},
 		{"swap", _oswap},
+		{"add", _add},
 		{NULL, NULL}
 	};
 

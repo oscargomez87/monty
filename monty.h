@@ -61,6 +61,7 @@ void ninstructionerr(char *, size_t, char *, stack_t *, FILE *);
 void emstackerror(void);
 void empopstackerror(void);
 void emswapstackerror(void);
+void emaddstackerror(void);
 
 /*
  * Core functions, first steps to operations call
@@ -75,6 +76,7 @@ void _opush(stack_t **, unsigned int);
 void _opint(stack_t **, unsigned int);
 void _opop(stack_t **, unsigned int);
 void _oswap(stack_t **, unsigned int);
+void _add(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 
