@@ -40,11 +40,11 @@ int main(int argc, char **argv)
 void _readline(FILE *fd)
 {
 	char *cmd, *cvalue, *temp = NULL, *linerd = NULL;
-	int chkres = 0, line_number = 0;
+	int chkres = 0, line_number = 0, glinechk = 0;
 	size_t nlinerd = 0;
 	stack_t *stack = NULL;
 
-	while (getline(&linerd, &nlinerd, fd) > 0)
+	while ((glinechk = getline(&linerd, &nlinerd, fd)) > 0)
 	{
 		temp = linerd;
 		line++;
@@ -60,6 +60,8 @@ void _readline(FILE *fd)
 		if (chkres == -1)
 			ninstructionerr(cmd, line, linerd, stack, fd);
 	}
+	if (glinechk == -1)
+		merror();
 	fclose(fd);
 	free(linerd);
 	_free_stack(stack);
