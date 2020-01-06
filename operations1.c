@@ -62,7 +62,9 @@ void _nop(__attribute__((unused)) stack_t **stack,
 void _sub(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	int a, b;
+	stack_t *temp;
 
+	temp = *stack;
 	if (*stack == NULL || (*stack)->prev == NULL
 	    || (*stack)->prev->prev == NULL)
 		emsubstackerror();
@@ -71,4 +73,5 @@ void _sub(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	(*stack)->prev->n = _abs(a - b);
 	(*stack)->prev->next = NULL;
 	*stack = (*stack)->prev;
+	free(temp);
 }
