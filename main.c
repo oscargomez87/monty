@@ -52,6 +52,7 @@ void _readline(FILE *fd)
 		{"swap", _oswap},
 		{"add", _add},
 		{"nop", _nop},
+		{"sub", _sub},
 		{NULL, NULL}
 	};
 

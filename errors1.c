@@ -54,3 +54,17 @@ void emaddstackerror(void)
 	write(STDERR_FILENO, buff, _strlen(buff));
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * emsubstackerror - Prints an error to stderr when malloc fails
+ *
+ */
+void emsubstackerror(void)
+{
+	char buff[1024];
+
+	snprintf(buff, 1024,
+		 "L%lu: can't sub, stack too short\n", line);
+	write(STDERR_FILENO, buff, _strlen(buff));
+	exit(EXIT_FAILURE);
+}
