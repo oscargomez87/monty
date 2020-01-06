@@ -14,6 +14,8 @@ void _opush(stack_t **stack, unsigned int line_number)
 	if (new == NULL)
 		merror();
 	new->n = line_number;
+	if (*stack != NULL)
+		(*stack)->next = new;
 	new->next = NULL;
 	new->prev = *stack;
 	*stack = new;

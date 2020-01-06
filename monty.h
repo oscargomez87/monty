@@ -73,6 +73,7 @@ int _chkcmd(instruction_t *, char *, char *, stack_t **);
 void _opush(stack_t **, unsigned int);
 void _opint(stack_t **, unsigned int);
 void _opop(stack_t **, unsigned int);
+void _oswap(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 
