@@ -41,3 +41,14 @@ void _add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	(*stack)->prev->next = NULL;
 	*stack = (*stack)->prev;
 }
+
+/**
+ * _nop - Does nothing.
+ *
+ * @stack: Linear data structure.
+ * @line_number: number to push at the end of the stack.
+ */
+void _nop(__attribute__((unused)) stack_t **stack,
+	  __attribute__((unused)) unsigned int line_number)
+{
+}

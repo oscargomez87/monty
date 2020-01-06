@@ -77,6 +77,7 @@ void _opint(stack_t **, unsigned int);
 void _opop(stack_t **, unsigned int);
 void _oswap(stack_t **, unsigned int);
 void _add(stack_t **, unsigned int);
+void _nop(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 
