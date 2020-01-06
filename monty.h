@@ -59,6 +59,7 @@ void merror(void);
 void nint(size_t, char *, stack_t *, FILE *);
 void ninstructionerr(char *, size_t, char *, stack_t *, FILE *);
 void emstackerror(void);
+void empopstackerror(void);
 
 /*
  * Core functions, first steps to operations call
@@ -71,6 +72,7 @@ int _chkcmd(instruction_t *, char *, char *, stack_t **);
  */
 void _opush(stack_t **, unsigned int);
 void _opint(stack_t **, unsigned int);
+void _opop(stack_t **, unsigned int);
 void _opall(stack_t **, unsigned int);
 void _free_stack(stack_t *);
 
