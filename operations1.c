@@ -70,7 +70,32 @@ void _sub(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 		emsubstackerror();
 	a = (*stack)->n;
 	b = (*stack)->prev->n;
-	(*stack)->prev->n = _abs(a - b);
+	(*stack)->prev->n = b - a;
+	(*stack)->prev->next = NULL;
+	*stack = (*stack)->prev;
+	free(temp);
+}
+
+/**
+ * _div - Inserts an element at the end of a stack.
+ *
+ * @stack: Linear data structure.
+ * @line_number: number to push at the end of the stack.
+ */
+void _div(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+{
+	int a, b;
+	stack_t *temp;
+
+	temp = *stack;
+	if (*stack == NULL || (*stack)->prev == NULL
+	    || (*stack)->prev->prev == NULL)
+		emdivstackerrorn0();
+	a = (*stack)->n;
+	if (a == 0)
+		emdivstackerror0();
+	b = (*stack)->prev->n;
+	(*stack)->prev->n = (b / a);
 	(*stack)->prev->next = NULL;
 	*stack = (*stack)->prev;
 	free(temp);
