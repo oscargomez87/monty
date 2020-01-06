@@ -60,6 +60,7 @@ void nint(size_t, char *, stack_t *, FILE *);
 void ninstructionerr(char *, size_t, char *, stack_t *, FILE *);
 void emstackerror(void);
 void empopstackerror(void);
+void emswapstackerror(void);
 
 /*
  * Core functions, first steps to operations call

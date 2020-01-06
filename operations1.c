@@ -10,6 +10,8 @@ void _oswap(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *temp;
 
+	if ((*stack)->prev->prev == NULL)
+		emswapstackerror();
 	temp = (*stack)->prev->prev;
 	(*stack)->next = temp->next;
 	temp->next = *stack;
